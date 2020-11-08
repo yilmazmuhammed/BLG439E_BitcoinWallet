@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container ">
+  <div class="row">
+    <div class="card bg-light m-auto">
+      <div class="card-header text-center h3 font-weight-bold">My Wallet</div>
+      <div class="card-body">
+        <p class="card-text"><span class="font-weight-bold">Wallet Address:</span> {{ current_user.wallet_ref.wallet_address }}</p>
+        <h5 class="card-title"></h5>
+        <p class="card-text"><span class="font-weight-bold">Balance:</span> {{ current_user.wallet_ref.key.get_balance('btc') }}</p>
+        <a href="{{ url_for("send_bitcoin_page") }}" class="card-link">Send bitcoin</a>
+        <a href="#" class="card-link">Ask bitcoin</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

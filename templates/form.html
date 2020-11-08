@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block extra_head %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <!-- Form CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}"/>
+
+    <script>
+    $(function() {
+      $('.form-group:has(input[required]) > label').after('<span>*</span>')
+    })
+    </script>
+
+    {% block extra_form_head %}{% endblock %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container mysite-form">
+  <h2 class="mysite-form-title">{{ page_info.title.split(' | ')[0] }}</h2>
+
+  {% for category, message in get_flashed_messages(with_categories=true) %}
+  <div class="alert alert-{{ category }}" role="alert">
+      {{ message|safe }}
+  </div>
+  {% endfor %}
+
+  {% if page_info.errors %}
+  <div class="alert alert-danger mysite-alert-list" role="alert">
+    <ul>
+      {% for error in page_info.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {{ page_info.form.open|safe }}
+{#    {{ sayfa_bilgileri.form.csrf_token }}#}
+    {% for field in page_info.form %}
+    {% if field.type in ["SubmitField"] or field.id == "csrf_token" %}
+    <div class="form-group mysite-form-btn-group">
+      {{ field }}
+    </div>
+    {% elif field.type in ["BooleanField"] %}
+    <div class="form-group mysite-form-btn-group">
+      {{ field }}
+      {{ field.label }}
+    </div>
+    {% else %}
+    <div class="form-group mysite-form-group">
+      {{ field.label }}
+      {{ field }}
+    </div>
+    {% endif %}
+    {% endfor %}
+  {{ page_info.form.close|safe }} <!-- return """</form>""" -->
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+.mysite-footer {
+  text-align: center;
+  height: 100px;
+}
+
+.mysite-form {
+  max-width: 350px;
+}
+
+.mysite-form-title {
+  color: #e9601a;
+  text-align: center;
+}
+
+.mysite-alert-list {
+  padding-left: 0px;
+}
+
+.mysite-form-btn-group {
+  text-align: center;
+}
+
+.mysite-navbar {
+  margin-bottom: 20px;
+}
+
+.mysite-card-header {
+    background-color: #337ab7;
+    color: #ede8e8;
+}
+
+.mysite-card {
+    border: 1px solid #337ab7;
+}
