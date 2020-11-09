@@ -15,7 +15,7 @@ class SendBitcoinForm(FlaskForm):
             InputRequired("Please enter receiver wallet address"),
             # Length(max=40, message="Receiver wallet address cannot be longer 40 characters.")
         ],
-        id='receiver_address', render_kw={"placeholder": "Receiver address"}
+        id='receiver_address', render_kw={"placeholder": "Receiver address", "class": "form-control"}
     )
 
     amount = DecimalField(
@@ -23,7 +23,7 @@ class SendBitcoinForm(FlaskForm):
         validators=[
             InputRequired("Please enter amount")
         ],
-        id="amount", render_kw={"placeholder": "Amount"}
+        id="amount", render_kw={"placeholder": "Amount", "class": "form-control"}
     )
 
     submit = SubmitField(label="Send", render_kw={"class": "btn-color"})

@@ -24,7 +24,7 @@ class RegisterForm(FlaskForm):
         "Username:",
         validators=[InputRequired("Please enter your username"),
                     Length(max=40, message="Username cannot be longer 40 characters.")],
-        id='username', render_kw={"placeholder": "Username"}
+        id='username', render_kw={"placeholder": "Username", "class": "form-control"}
     )
 
     email = EmailField(
@@ -34,7 +34,7 @@ class RegisterForm(FlaskForm):
             Length(max=254, message="Email cannot be longer than 54 characters."),
             Email("Please enter valid email")
         ],
-        id='email', render_kw={"placeholder": "Email"}
+        id='email', render_kw={"placeholder": "Email", "class": "form-control"}
     )
 
     # phone_number = TelField(
@@ -47,7 +47,7 @@ class RegisterForm(FlaskForm):
         "Password:",
         validators=[InputRequired("Please enter your password"),
                     Length(max=30, message="Password cannot be longer than 30 characters")],
-        id='password', render_kw={"placeholder": "Password"}
+        id='password', render_kw={"placeholder": "Password", "class": "form-control"}
     )
 
     password_verification = PasswordField(
@@ -55,7 +55,7 @@ class RegisterForm(FlaskForm):
         validators=[InputRequired("Please enter your password verification"),
                     Length(max=30, message="Password verification cannot be longer than 30 characters"),
                     EqualTo('password', message="Passwords do not match")],
-        id='password_verification', render_kw={"placeholder": "Password verification"}
+        id='password_verification', render_kw={"placeholder": "Password verification", "class": "form-control"}
     )
 
     # is_admin = BooleanField(
@@ -80,14 +80,14 @@ class LoginForm(FlaskForm):
         "Username:",
         validators=[InputRequired("Please enter your username"),
                     Length(max=40, message="Username cannot be longer 40 characters.")],
-        id='last_name', render_kw={"placeholder": "Username"}
+        id='last_name', render_kw={"placeholder": "Username", "class": "form-control"}
     )
 
     password = PasswordField(
         "Password:",
         validators=[InputRequired("Please enter your password"),
                     Length(max=30, message="Password cannot be longer than 30 characters")],
-        id='password', render_kw={"placeholder": "Password"}
+        id='password', render_kw={"placeholder": "Password", "class": "form-control"}
     )
 
     submit = SubmitField(label="Submit", render_kw={"class": "btn-color"})
