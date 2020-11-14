@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <div class="row text-center p-3">
+    <div class="col ">
+      <a href="{{ url_for("new_bitcoin_request_page") }}"><div class="btn btn-primary text-white">New bitcoin request</div></a>
+    </div>
+  </div>
+  <div class="row p-3">
+    <div class="col">
+      <table class="table table-sm table-striped text-center">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Creating date</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Min amount</th>
+            <th scope="col">Max amount in total</th>
+            <th scope="col">Max count</th>
+            <th scope="col">Count of received</th>
+            <th scope="col">Total received</th>
+            <th scope="col">Request URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for br in g.my_bitcoin_requests %}
+          <tr>
+            <th scope="row">{{ br.id }}</th>
+            <td>{{ br.creating_date }}</td>
+            <td>{{ br.amount }}</td>
+            <td>{{ br.min_amount }}</td>
+            <td>{{ br.max_total }}</td>
+            <td>{{ br.max_count }}</td>
+            <td>{{ br.transfers_set.count() }}</td>
+            <td>{{ br.total_incoming_amount }}</td>
+            <td><a href="{{ url_for('bitcoin_request_page', bitcoin_request_id=br.id) }}">
+              {{ url_for('bitcoin_request_page', _external=True, bitcoin_request_id=br.id) }}</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

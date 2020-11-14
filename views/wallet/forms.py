@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DecimalField, SubmitField
+from wtforms import StringField, DecimalField, SubmitField, FloatField
 from wtforms.validators import InputRequired
 
 from views.utilities.forms import form_open, form_close
@@ -18,7 +18,7 @@ class SendBitcoinForm(FlaskForm):
         id='receiver_address', render_kw={"placeholder": "Receiver address", "class": "form-control"}
     )
 
-    amount = DecimalField(
+    amount = FloatField(
         "Amount:",
         validators=[
             InputRequired("Please enter amount")

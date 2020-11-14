@@ -7,6 +7,7 @@ from pony.flask import Pony
 from db_models import WebUser
 from views import home_page
 from views.authorization.page import register_page, login_page, logout_page
+from views.bitcoin_request.page import new_bitcoin_request_page, my_bitcoin_requests_page, bitcoin_request_page
 from views.transfer.page import send_bitcoin_page
 from views.wallet.page import my_wallet_page
 
@@ -23,7 +24,12 @@ wallet_app.add_url_rule("/login", view_func=login_page, methods=["GET", "POST"])
 wallet_app.add_url_rule("/logout", view_func=logout_page)
 # Wallet pages
 wallet_app.add_url_rule("/my_wallet", view_func=my_wallet_page)
-wallet_app.add_url_rule("/send_bitcoin_page", view_func=send_bitcoin_page, methods=["GET", "POST"])
+wallet_app.add_url_rule("/send_bitcoin", view_func=send_bitcoin_page, methods=["GET", "POST"])
+# BitcoinRequest pages
+wallet_app.add_url_rule("/new_bitcoin_request", view_func=new_bitcoin_request_page, methods=["GET", "POST"])
+wallet_app.add_url_rule("/my_bitcoin_requests", view_func=my_bitcoin_requests_page)
+wallet_app.add_url_rule("/bitcoin_request/<int:bitcoin_request_id>",
+                        view_func=bitcoin_request_page, methods=["GET", "POST"])
 
 lm = LoginManager()
 lm.init_app(wallet_app)

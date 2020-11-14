@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, date
 
 from bit import wif_to_key
 from flask_login import UserMixin
@@ -53,6 +53,7 @@ class Transfer(db.Entity):
     receiver_wallet_ref = Required(Wallet, reverse='received_transfers_set')
     transfer_time = Required(datetime, default=lambda: datetime.now())
     bitcoin_request_ref = Optional('BitcoinRequest')
+    transfer_key = Required(str)
 
 
 class BitcoinRequest(db.Entity):
@@ -62,8 +63,18 @@ class BitcoinRequest(db.Entity):
     max_count = Required(int, default=0, unsigned=True)
     max_total = Required(float, default=0)
     is_active = Required(bool, default=True)
+    creating_date = Required(date, default=lambda: date.today())
     wallet_ref = Required(Wallet)
     transfers_set = Set(Transfer)
+
+    @property
+    def total_incoming_amount(self):
+        return select(i.amount for i in self.transfers_set).sum()
+
+    @property
+    def remaining_amount_from_total(self):
+        ret = self.max_total - select(i.amount for i in self.transfers_set).sum()
+        return ret if ret else None
 
 
 # PostgreSQL

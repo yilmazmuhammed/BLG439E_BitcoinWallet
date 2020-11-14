@@ -1,8 +1,8 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
+from views.transfer.db import db_send_bitcoin
 from views.utilities import FormPI
-from views.wallet.db import db_send_bitcoin
 from views.wallet.forms import SendBitcoinForm
 
 

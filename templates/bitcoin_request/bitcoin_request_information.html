@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <div class="row m-auto p-3">
+    <div class="col-md-6">
+      <div class="card border-info">
+        <div class="card-header bg-info">
+          Bitcoin Request
+        </div>
+        <div class="card-body">
+          <table>
+            <tbody>
+              <tr>
+                <td>Id: </td>
+                <td>{{ g.bitcoin_request.id }}</td>
+              </tr>
+              <tr>
+                <td>Amount per transfer: </td>
+                <td>{{ g.bitcoin_request.amount }}</td>
+              </tr>
+              <tr>
+                <td>Minimum amount: </td>
+                <td>{{ g.bitcoin_request.min_amount }}</td>
+              </tr>
+              <tr>
+                <td>Maximum amount in total: </td>
+                <td>{{ g.bitcoin_request.min_amount }}</td>
+              </tr>
+              <tr>
+                <td>Maximum transaction count: </td>
+                <td>{{ g.bitcoin_request.max_count }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card border-info">
+        <div class="card-header bg-info">
+          Summary of transfers received
+        </div>
+        <div class="card-body">
+          <table>
+            <tbody>
+              <tr>
+                <td>Count of received transaction: </td>
+                <td>{{ g.bitcoin_request.transfers_set.count() }}</td>
+              </tr>
+              <tr>
+                <td>Total amount of received transactions: </td>
+                <td>{{ g.bitcoin_request.total_incoming_amount }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row m-auto p-3">
+    <div class="col-md-12">
+      <div class="card border-info">
+        <div class="card-header bg-info">
+          Received transfers
+        </div>
+        <div class="table table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date:</th>
+                <th>Amount:</th>
+                <th>Sender wallet key:</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for t in g.bitcoin_request.transfers_set %}
+              <tr>
+                <td>{{ t.id }}</td>
+                <td>{{ t.transfer_time }}</td>
+                <td>{{ t.amount }}</td>
+                <td>{{ t.sender_wallet_ref.wallet_address }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

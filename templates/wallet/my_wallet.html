@@ -9,7 +9,44 @@
         <h5 class="card-title"></h5>
         <p class="card-text"><span class="font-weight-bold">Balance:</span> {{ current_user.wallet_ref.key.get_balance('btc') }}</p>
         <a href="{{ url_for("send_bitcoin_page") }}" class="card-link">Send bitcoin</a>
-        <a href="#" class="card-link">Ask bitcoin</a>
+        <a href="{{ url_for("new_bitcoin_request_page") }}" class="card-link">Ask bitcoin</a>
+        <a href="{{ url_for("my_bitcoin_requests_page") }}" class="card-link">My requests</a>
+      </div>
+    </div>
+  </div>
+  <div class="row p-3">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+            My transfers
+        </div>
+        <div class="table table-responsive table-striped text-center">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Transfer time</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Transfer type</th>
+                <th scope="col">Receiver/Sender wallet address</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for t in g.transfers %}
+              <tr>
+                <th scope="row">{{ t.id }}</th>
+                <td>{{ t.transfer_time.strftime("%d-%m-%Y %H:%M") }}</td>
+                <td>{{ t.amount }}</td>
+                <td>{% if t.sender_wallet_ref == current_user.wallet_ref %}Sent{% else %}Receipt{% endif %}</td>
+                <td>{{ t.receiver_wallet_ref.wallet_address }}</td>
+    {#            <td><a href="{{ url_for('bitcoin_request_page', bitcoin_request_id=br.id) }}">#}
+    {#              {{ url_for('bitcoin_request_page', _external=True, bitcoin_request_id=br.id) }}</a>#}
+    {#            </td>#}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
