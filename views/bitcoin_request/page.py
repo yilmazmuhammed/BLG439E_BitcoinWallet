@@ -1,5 +1,3 @@
-from copy import copy
-
 from bit.exceptions import InsufficientFunds
 from flask import render_template, url_for, g, flash, abort
 from flask_login import login_required, current_user
@@ -38,12 +36,14 @@ def new_bitcoin_request_page():
     return render_template("form.html", page_info=FormPI(form=form, title="Request Bitcoin"))
 
 
+@login_required
 def my_bitcoin_requests_page():
     my_bitcoin_requests = current_user.wallet_ref.bitcoin_requests_set.select()[:]
     g.my_bitcoin_requests = my_bitcoin_requests
     return render_template("bitcoin_request/my_bitcoin_requests.html", page_info=LayoutPI(title="My Bitcoin Requests"))
 
 
+@login_required
 def bitcoin_request_page(bitcoin_request_id):
     bitcoin_request = db_get_bitcoin_request(bitcoin_request_id)
     if not bitcoin_request:

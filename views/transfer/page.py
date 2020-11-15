@@ -1,4 +1,5 @@
-from flask import render_template, request, redirect, url_for
+from bit.exceptions import InsufficientFunds
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 
 from views.transfer.db import db_send_bitcoin
@@ -11,11 +12,14 @@ def send_bitcoin_page():
     form = SendBitcoinForm()
 
     if form.validate_on_submit():
-        db_send_bitcoin(
-            sender_wallet=current_user.wallet_ref,
-            receiver_address=form.receiver_address.data,
-            amount=form.amount.data
-        )
+        try:
+            db_send_bitcoin(
+                sender_wallet=current_user.wallet_ref,
+                receiver_address=form.receiver_address.data,
+                amount=form.amount.data
+            )
+        except InsufficientFunds as e:
+            flash(str(e), "danger")
         print(form.receiver_address.data)
         print(form.amount.data)
         return redirect(url_for("my_wallet_page"))

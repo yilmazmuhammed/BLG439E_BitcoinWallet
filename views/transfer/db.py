@@ -8,8 +8,6 @@ def db_send_bitcoin(sender_wallet, amount, receiver_address=None, bitcoin_reques
     print(sender_wallet)
     transfer_key = sender_wallet.key.send([(receiver_wallet.wallet_address, amount, 'btc')])
     print(transfer_key)
-    # print(sender_wallet.key.balance('btc'))
-    # print(receiver_wallet.key.balance('btc'))
     if transfer_key:
         return Transfer(
             amount=amount,
