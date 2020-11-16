@@ -8,4 +8,5 @@ from views.utilities import LayoutPI
 @login_required
 def my_wallet_page():
     g.transfers = db_get_my_transfers(current_user.wallet_ref.id)
+    print(current_user.wallet_ref.id)
     return render_template("wallet/my_wallet.html", page_info=LayoutPI(title="Welcome"))

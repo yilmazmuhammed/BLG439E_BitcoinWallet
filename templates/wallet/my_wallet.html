@@ -38,8 +38,8 @@
                 <td>{{ t.transfer_time.strftime("%d-%m-%Y %H:%M") }}</td>
                 <td>{{ t.amount }}</td>
                 <td>{% if t.sender_wallet_ref == current_user.wallet_ref %}Sent{% else %}Receipt{% endif %}</td>
-                <td>{{ t.receiver_wallet_ref.wallet_address }}</td>
-    {#            <td><a href="{{ url_for('bitcoin_request_page', bitcoin_request_id=br.id) }}">#}
+                <td>{% if t.sender_wallet_ref == current_user.wallet_ref %}{{ t.receiver_wallet_ref.wallet_address }}{% else %}{{ t.sender_wallet_ref.wallet_address }}{% endif %}</td>
+{#                <td>{{ t.receiver_wallet_ref.wallet_address }}</td>#}
     {#              {{ url_for('bitcoin_request_page', _external=True, bitcoin_request_id=br.id) }}</a>#}
     {#            </td>#}
               </tr>
